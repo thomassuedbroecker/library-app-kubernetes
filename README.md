@@ -1,8 +1,31 @@
 # Library Application
 
-For more information about the application see: [https://github.com/florae123/LibraryApp-user](https://github.com/florae123/LibraryApp-user).
+## Contents
 
-## Prerequisites
+* [Overview](#part0-0)
+* [Prerequisites](#part0-1)
+* The deployment steps
+    1. [Create the Bluemix Services](#part1)
+    2. [Connect to Bluemix on the command line](#part2)
+    3. [Set up the Cloudant Developer Edition Container](#part3)
+    4. [Add the Java and the Node.JS server to the cluster](#part4)
+
+## Overview <a name="part0-0"></a>
+
+This is a sample application running on kubernetes, and using Bluemix Services (Watson Conversation Service, TextToSpeech Service and App ID Service)
+
+Once fully deployed, the web UI looks this:
+![Web_UI](./images/WebInterface.png)
+
+The basic architecture of the application running on a Kubernetes cluster:
+
+![Architecture](./images/architecture.png)
+
+These are the use cases of the application:
+
+![use_cases](./images/usecases-v2.png)
+
+## Prerequisites <a name="part0-1"></a>
 
   For this lab, you will need an [IBM BLuemix account](https://console.bluemix.net/registration/).
 
@@ -24,13 +47,6 @@ Clone this git repository.
 ```
 git clone https://github.com/florae123/library-app-kubernetes
 ```
-
-## Steps
-
-1. [Create the Bluemix Services](#part1)
-2. [Connect to Bluemix on the command line](#part2)
-3. [Set up the Cloudant Developer Edition Container](#part3)
-4. [Add the Java and the Node.JS server to the cluster](#part4)
 
 ---
 
