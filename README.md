@@ -210,9 +210,9 @@ In this case, we will use the **ibmcom/cloudant-developer** image from Docker Hu
     docker push registry.<region>.bluemix.net/<namespace>/library-ui:v1
     ```
 
-3. In the file **library-server.yaml**, change the name of the image in line 32 to **registry.<region>.bluemix.net/<namespace>/library-server:v1**.
+3. In the file **library-server.yaml**, change the name of the image in line 32 to **registry._region_.bluemix.net/_namespace_/library-server:v1**.
 
-    In the file **library-ui-deployment.yaml**, change the name of the image to **registry.<region>.bluemix.net/<namespace>/library-ui:v1** in line 15.
+    In the file **library-ui-deployment.yaml**, change the name of the image to **registry._region_.bluemix.net/_namespace_/library-ui:v1** in line 15.
 
 4. Create a deployment and a service for the java backend in your cluster.
     ```
