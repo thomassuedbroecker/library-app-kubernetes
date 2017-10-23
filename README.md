@@ -38,7 +38,7 @@ Before running the two containers on a Kubernetes cluster on Bluemix, you need t
     ![Launch](./images/launch-conv.png)
 
   * Switch to the new tab or window, where the Conversation Management Tool has opened. Next to **Create workspace**, click the  **Import** icon.
-  * Choose the file **conversation-workspace-v2.json** from your local copy of the LibraryUI directory, select **Everything (Intents, Entities, and Dialog)**, and click **Import**.
+  * Choose the file **conversation-workspace.json** from your local copy of the LibraryUI directory, select **Everything (Intents, Entities, and Dialog)**, and click **Import**.
 
     ![import](./images/import-workspace-2.png)
 
@@ -114,10 +114,15 @@ In this case, we will use the **ibmcom/cloudant-developer** image from Docker Hu
         ```
         kubectl get pods
         ```
+
+        ![kubectl-get-pods](./images/get-pods.png)
+
     2. Use the port-forward command to access the service on **http://localhost:80/dashboard.html**
         ```
         kubectl port-foward <cloudant_dev_pod_name> 80:80
         ```
+
+        ![kubectl-port-forward](./images/port-forward.png)
     3. Enter the username **admin** and the password **pass**.
     4. Create a database called **"books"**.
 
@@ -161,32 +166,32 @@ In this case, we will use the **ibmcom/cloudant-developer** image from Docker Hu
 
     5. Create a database called **"customers"**. A customer will be saved as a JSON in the following format:
 
-      ```
-    	{
-    	  "_id": "the customer's id",
-        "_rev": "...",
-    	  "name": "the customer's name",
-    	  "email": "the customer's email address",
-    	  "password": "the customer's password",
-    	  "id": "must be the same as _id"
-    	}
-      ```
-      Add a search index from the file **cloudant-design-docs/cloudant-design-doc-customers.json** as described in the previous step.
+        ```
+      	{
+      	  "_id": "the customer's id",
+          "_rev": "...",
+      	  "name": "the customer's name",
+      	  "email": "the customer's email address",
+      	  "password": "the customer's password",
+      	  "id": "must be the same as _id"
+      	}
+        ```
+        Add a search index from the file **cloudant-design-docs/cloudant-design-doc-customers.json** as described in the previous step.
 
     6. Create a database called **"rentals"**. Whenever a book is borrowed, it is registered in "rentals". A rental will be saved as a JSON in the following format:
 
-      ```
-      {
-        "_id": "the rental's id",
-        "_rev": "...",
-        "id": "must be the same as _id",
-        "bookid": "the id of the book borrowed",
-        "customerid": "the id of the customer borrowing the book",
-        "start": "Mar 3, 2017 12:00:00 AM",
-        "end": "May 4, 2017 12:00:00 AM"
-      }
-      ```
-      Add a search index from the file **cloudant-design-docs/cloudant-design-doc-rentals.json**.
+        ```
+        {
+          "_id": "the rental's id",
+          "_rev": "...",
+          "id": "must be the same as _id",
+          "bookid": "the id of the book borrowed",
+          "customerid": "the id of the customer borrowing the book",
+          "start": "Mar 3, 2017 12:00:00 AM",
+          "end": "May 4, 2017 12:00:00 AM"
+        }
+        ```
+        Add a search index from the file **cloudant-design-docs/cloudant-design-doc-rentals.json**.
 
     7. To return to the normal command line, press **Ctrl+C** in the terminal.
 
@@ -223,6 +228,11 @@ In this case, we will use the **ibmcom/cloudant-developer** image from Docker Hu
     ```
     kubectl get services
     ```
+
+    ![EXTERNAL-IP](./images/externalip1.png)
+
+    ![EXTERNAL-IP_library-ui](./images/externalip2.png)
+
     Open the file **library-ui-deployment.yaml** and change the value for **APP_URL** to **http://<EXTERNAL-IP_library-ui>:30832** line 23, like
     ```
     env:
