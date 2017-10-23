@@ -115,7 +115,7 @@ Before running the two containers on a Kubernetes cluster on Bluemix, you need t
     bx cr namespace-add <your_namespace>
     ```
 
-## Setup the Cloudant Developer Edition Container <a name="part3"></a>
+## 3. Setup the Cloudant Developer Edition Container <a name="part3"></a>
 
 For the library application, you need a Cloudant NoSQL Database.
 
@@ -220,7 +220,7 @@ In this case, we will use the **ibmcom/cloudant-developer** image from Docker Hu
 
     7. To return to the normal command line, press **Ctrl+C** in the terminal.
 
-## Add the Java and the Node.JS server to the cluster <a name="part4"></a>
+## 4. Add the Java and the Node.JS server to the cluster <a name="part4"></a>
 
 1. Build the docker images locally. Replace *<region>* with the Bluemix region you are using and *<namespace>* with the name of your namespace.
     ```
