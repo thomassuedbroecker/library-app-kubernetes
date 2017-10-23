@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: library-server
+  name: library-server
+spec:
+  ports:
+  - nodePort: 30190
+    port: 9080
+    protocol: TCP
+    targetPort: 9080
+  selector:
+    run: library-server
+  sessionAffinity: None
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: library-server
+  name: library-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: library-server
+    spec:
+      containers:
+      - image: registry.eu-de.bluemix.net/feggers/library-server:v1
+        #image: library-server:v1
+        name: library-server
+        env:
+          - name: CLOUDANT_DEVELOPER
+            value: "1"
+          - name: password
+            value: xxx
+          - name: username
+            value: xxx
+        ports:
+        - containerPort: 9080
+          protocol: TCP
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      #schedulerName: default-scheduler
+      #securityContext: {}

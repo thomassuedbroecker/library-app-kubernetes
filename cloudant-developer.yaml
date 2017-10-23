@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: cloudant-developer
+  name: cloudant-developer
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: cloudant-developer
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: cloudant-developer
+  name: cloudant-developer
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: cloudant-developer
+    spec:
+      containers:
+      - image: ibmcom/cloudant-developer
+        name: cloudant-developer
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always

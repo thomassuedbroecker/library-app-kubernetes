@@ -1,0 +1,8 @@
+applications:
+- name: ubuntu-libraryui
+  host: ubuntu-libraryui
+  env:
+    LIBRARY_URI: "https://ubuntu-java-server.mybluemix.net/api"
+    WORKSPACE_ID: "4e3c0199-9871-4346-8b30-c2bfba973f8c"
+  memory: 512M
+  instances: 1

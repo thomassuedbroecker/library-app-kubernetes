@@ -1,0 +1,51 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: library-ui
+  name: library-ui
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: library-ui
+    spec:
+      containers:
+      - image: registry.eu-de.bluemix.net/feggers/library-ui:v1
+        #image: library-ui:v1
+        name: library-ui
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        env:
+        - name: APP_URL #make sure protocol in Libraryui/server.js (l.194) for library-server Service is adjusted (http or https)
+          value: http://159.122.69.139:30832
+        - name: CLIENT_ID
+          value: xxx
+        - name: CONVERSATION_PASSWORD
+          value: xxx
+        - name: CONVERSATION_USERNAME
+          value: xxx
+        - name: OAUTH_SERVER_URL
+          value: xxx
+        - name: SECRET
+          value: xxx
+        - name: TENANT_ID
+          value: xxx
+        - name: conv_workspaceid
+          value: xxx
+        - name: inContainer
+          value: "1" # should be set to "1"
+        - name: tts_password
+          value: xxx
+        - name: tts_username
+          value: xxx
+        #- name: LIBRARY_URI
+        #  value: http://192.168.99.101:30190/library-server-java/api
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

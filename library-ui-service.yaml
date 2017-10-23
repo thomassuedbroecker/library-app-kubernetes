@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: library-ui
+  name: library-ui
+  resourceVersion: "80738"
+spec:
+  ports:
+  - nodePort: 30832
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: library-ui
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}
