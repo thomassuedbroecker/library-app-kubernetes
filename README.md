@@ -25,7 +25,16 @@ Clone this git repository.
 git clone https://github.com/florae123/library-app-kubernetes
 ```
 
-## Create the Bluemix Services
+## Steps
+
+1. [Create the Bluemix Services](#part1)
+2. [Connect to Bluemix on the command line](#part2)
+3. [Set up the Cloudant Developer Edition Container](#part3)
+4. [Add the Java and the Node.JS server to the cluster](#part4)
+
+---
+
+## 1. Create the Bluemix Services <a name="part1"></a>
 
 Before running the two containers on a Kubernetes cluster on Bluemix, you need to create an instance of a Conversation Service, a TextToSpeech Service and an App ID service on Bluemix.
 
@@ -59,7 +68,7 @@ Before running the two containers on a Kubernetes cluster on Bluemix, you need t
 
 3. Create an instance of the *App ID* Service on Bluemix by selecting it from the catalog. Copy the corresponding values of the credentials into the following values in the file **libraryui-deployment.yaml**: *CLIENT_ID, OAUTH_SERVER_URL, SECRET, TENANT_ID*.
 
-## Connect to Bluemix on the command line
+## 2. Connect to Bluemix on the command line <a name="part2"></a>
 
 0. Open a terminal. Make sure you can run docker commands on this terminal.
 1. Login to Bluemix using the command line:
@@ -90,7 +99,7 @@ Before running the two containers on a Kubernetes cluster on Bluemix, you need t
     bx cr namespace-add <your_namespace>
     ```
 
-## Setup the Cloudant Developer Edition Container
+## Setup the Cloudant Developer Edition Container <a name="part3"></a>
 
 For the library application, you need a Cloudant NoSQL Database.
 
@@ -195,7 +204,7 @@ In this case, we will use the **ibmcom/cloudant-developer** image from Docker Hu
 
     7. To return to the normal command line, press **Ctrl+C** in the terminal.
 
-## Add the Java and the Node.JS server to the cluster
+## Add the Java and the Node.JS server to the cluster <a name="part4"></a>
 
 1. Build the docker images locally. Replace *<region>* with the Bluemix region you are using and *<namespace>* with the name of your namespace.
     ```
