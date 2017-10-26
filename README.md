@@ -19,7 +19,7 @@ Once fully deployed, the web UI looks this:
 
 The basic architecture of the application running on a Kubernetes cluster:
 
-![Architecture](./images/architecture.png)
+![Architecture](./images/kubernetes-arch-app.png)
 
 These are the use cases of the application:
 
@@ -144,7 +144,7 @@ In this case, we will use the **ibmcom/cloudant-developer** image from Docker Hu
 
     2. Use the port-forward command to access the service on **http://localhost:80/dashboard.html**
         ```
-        kubectl port-foward <cloudant_dev_pod_name> 80:80
+        kubectl port-forward <cloudant_dev_pod_name> 80:80
         ```
 
         ![kubectl-port-forward](./images/port-forward.png)
