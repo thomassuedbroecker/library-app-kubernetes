@@ -295,7 +295,7 @@ app.put('/say', function(req, res) {
             return;
           }
         })
-      } else if (data.output.action == 'search_author' && data.outpunt.hasOwnProperty('action_param')) {
+      } else if (data.output.action == 'search_author' && data.output.hasOwnProperty('action_param')) {
         var author = data.output.action_param;
         //get books request
         request(libraryURI+'/books/author/'+author, function (error, response, body) {
