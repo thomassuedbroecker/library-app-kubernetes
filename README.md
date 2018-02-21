@@ -291,19 +291,39 @@ Remember your registry namespace with **bx cr namespace-list**.
             value: xxx
     ```
 
-    In the file **library-ui-deployment.yaml**, change the name of the image to **registry._region_.bluemix.net/_namespace_/library-ui:v1** in line 15.
+2. In the file **library-ui-deployment.yaml**, change the name of the image to **registry.[REGION].bluemix.net/[NAMESPACE]/library-ui:v1** in line 15.
 
-2. Create a **deployment and a service** for the java backend in your kubernets cluster.
+    ```
+        spec:
+          containers:
+          - image: registry.[REGION].bluemix.net/[NAMESPACE]/library-ui:v1
+            #image: library-ui:v1
+            name: library-ui
+            ports:
+            - containerPort: 8080
+              protocol: TCP
+            env:
+            - name: APP_URL #make sure protocol in Libraryui/server.js (l.194) for library-server Service is adjusted (http or https)
+              value: http://159.122.69.139:30832
+            - name: CLIENT_ID
+              value: xxx
+            - name: CONVERSATION_PASSWORD
+              value: xxx
+            - name: CONVERSATION_USERNAME
+              value: xxx
+    ```
+
+3. Create a **deployment and a service** for the java backend in your kubernets cluster.
     ```
     kubectl create -f library-server.yaml
     ```
 
-3. Create a service for the Node.js server and frontend in your cluster and expose it.
+4. Create a service for the Node.js server and frontend in your cluster and expose it.
     ```
     kubectl create -f library-ui-service.yaml
     ```
 
-4. Get a list of the services in the cluster and copy the **EXTERNAL-IP** of the service **library-ui**.
+5. Get a list of the services in the cluster and copy the **EXTERNAL-IP** of the service **library-ui**.
     ```
     kubectl get services
     ```
@@ -319,9 +339,9 @@ Remember your registry namespace with **bx cr namespace-list**.
         value: http://159.122.69.139:30832
     ```
 
-7. Create a deployment for the the Node.js server and frontend.
+6. Create a deployment for the the Node.js server and frontend.
     ```
     kubectl create -f library-ui-deployment.yaml
     ```
 
-8. Open **http://<EXTERNAL-IP_library-ui>:30832** in a browser and log in using a facebook or google account.
+7. Open **http://<EXTERNAL-IP_library-ui>:30832** in a browser and log in using a facebook or google account.
