@@ -257,6 +257,8 @@ In this case, we will use the **ibmcom/cloudant-developer** image from **Docker 
 
 Remember your registry namespace with **bx cr namespace-list**.
 
+### 5.1 Create Docker image and upload to image registry
+
 1. **Build the docker images locally.** Replace **<region>** with the IBM Cloud region you are using and **<namespace>** with the name of your namespace.
     ```
     docker build -t registry.<region>.bluemix.net/<namespace>/library-server:v1 ./library-server-java
@@ -270,21 +272,23 @@ Remember your registry namespace with **bx cr namespace-list**.
     docker push registry.<region>.bluemix.net/<namespace>/library-ui:v1
     ```
 
-3. In the file **library-server.yaml**, change the name of the image in line 32 to **registry._region_.bluemix.net/_namespace_/library-server:v1**.
+### 5.2 Deploy the images of the registry to Kubernetes
+
+1. In the file **library-server.yaml**, change the name of the image in line 32 to **registry._region_.bluemix.net/_namespace_/library-server:v1**.
 
     In the file **library-ui-deployment.yaml**, change the name of the image to **registry._region_.bluemix.net/_namespace_/library-ui:v1** in line 15.
 
-4. Create a **deployment and a service** for the java backend in your kubernets cluster.
+2. Create a **deployment and a service** for the java backend in your kubernets cluster.
     ```
     kubectl create -f library-server.yaml
     ```
 
-5. Create a service for the Node.js server and frontend in your cluster and expose it.
+3. Create a service for the Node.js server and frontend in your cluster and expose it.
     ```
     kubectl create -f library-ui-service.yaml
     ```
 
-6. Get a list of the services in the cluster and copy the **EXTERNAL-IP** of the service **library-ui**.
+4. Get a list of the services in the cluster and copy the **EXTERNAL-IP** of the service **library-ui**.
     ```
     kubectl get services
     ```
