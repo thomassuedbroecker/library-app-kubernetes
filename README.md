@@ -255,7 +255,9 @@ In this case, we will use the **ibmcom/cloudant-developer** image from **Docker 
 
 ## 5. Add the Java and the Node.JS server to the cluster <a name="part4"></a>
 
-1. Build the docker images locally. Replace **<region>** with the Bluemix region you are using and **<namespace>** with the name of your namespace.
+Remember your registry namespace with **bx cr namespace-list**.
+
+1. Build the docker images locally. Replace **<region>** with the IBM Cloud region you are using and **<namespace>** with the name of your namespace.
     ```
     docker build -t registry.<region>.bluemix.net/<namespace>/library-server:v1 ./library-server-java
     docker build -t registry.<region>.bluemix.net/<namespace>/library-ui:v1 ./Libraryui
