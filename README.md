@@ -272,9 +272,24 @@ Remember your registry namespace with **bx cr namespace-list**.
     docker push registry.<region>.bluemix.net/<namespace>/library-ui:v1
     ```
 
-### 5.2 Deploy the Docker images of the registry to Kubernetes 
+### 5.2 Deploy the Docker images of the registry to Kubernetes
 
-1. In the file **library-server.yaml**, change the name of the image in line 32 to **registry._region_.bluemix.net/_namespace_/library-server:v1**.
+1. In the file **library-server.yaml**, change the name of the image in line 32 to **registry.[REGION].bluemix.net/[NAMESPACE]/library-server:v1**.
+
+   ```
+    spec:
+      containers:
+      - image: registry.[REGION].bluemix.net/[NAMESPACE]/library-server:v1
+        #image: library-server:v1
+        name: library-server
+        env:
+          - name: CLOUDANT_DEVELOPER
+            value: "2" #set to 2 for usage of Cloudant in IBM Cloud and 1 for using the container.
+          - name: password
+            value: xxx
+          - name: username
+            value: xxx
+    ```
 
     In the file **library-ui-deployment.yaml**, change the name of the image to **registry._region_.bluemix.net/_namespace_/library-ui:v1** in line 15.
 
