@@ -5,14 +5,16 @@
 * [Overview](#part0-0)
 * [Prerequisites](#part0-1)
 * The deployment steps
-    1. [Create the Bluemix Services](#part1)
-    2. [Connect to Bluemix on the command line](#part2)
+    1. [Create the IBM Cloud Services](#part1)
+    2. [Connect to IBM Cloud on the command line](#part2)
     3. [Set up the Cloudant Developer Edition Container](#part3)
     4. [Add the Java and the Node.JS server to the cluster](#part4)
 
 ## Overview <a name="part0-0"></a>
 
-This is a sample application running on kubernetes, and using Bluemix Services (Watson Conversation Service, TextToSpeech Service and App ID Service)
+This is a sample application running on kubernetes, and using IBM Cloud Services (Watson Conversation Service, TextToSpeech Service and App ID Service)
+
+_Note:_ A sample to run the application using Cloud Foundry as runtime is also available here on github. Link to the GitHub Project [Web_UI](https://github.com/cloud-dach/cf-hands-on-library)
 
 Once fully deployed, the web UI looks this:
 ![Web_UI](./images/WebInterface.png)
@@ -27,11 +29,11 @@ These are the use cases of the application:
 
 ## Prerequisites <a name="part0-1"></a>
 
-  For this lab, you will need an [IBM BLuemix account](https://console.bluemix.net/registration/).
+  For this lab, you will need an [IBM Cloud account](https://console.bluemix.net/registration/).
 
   The software needed for the following steps:
   * the Bluemix CLI: [Link](https://clis.ng.bluemix.net/ui/home.html)
-  * IBM Bluemix Container Service plug-in:
+  * IBM Cloud Container Service plug-in:
       ```
       bx plugin install container-service -r Bluemix
       ```
@@ -50,9 +52,9 @@ git clone https://github.com/florae123/library-app-kubernetes
 
 ---
 
-## 1. Create the Bluemix Services <a name="part1"></a>
+## 1. Create the IBM Cloud Services <a name="part1"></a>
 
-Before running the two containers on a Kubernetes cluster on Bluemix, you need to create an instance of a Conversation Service, a TextToSpeech Service and an App ID service on Bluemix.
+Before running the two containers on a Kubernetes cluster on IBM Cloud, you need to create an instance of a Conversation Service, a TextToSpeech Service and an App ID service on Bluemix.
 
 1. First, create a *Watson Conversation* service and copy the credentials to the Kubernetes Service configuration file.
 
@@ -78,13 +80,13 @@ Before running the two containers on a Kubernetes cluster on Bluemix, you need t
        value: 1ec4b7df-07d8-4fca-9e79-909409b6d718
     ```
 
-  * Go back to Bluemix in your browser. Open the **Service credentials** tab. If there are no credentials, add a *New credential*. Click **view credentials**. Copy and replace **username** and **password** for **CONVERSATION_USERNAME** and **CONVERSATION_PASSWORD**, respectively, in the file **libraryui-deployment.yaml**.
+  * Go back to IBM Cloud in your browser. Open the **Service credentials** tab. If there are no credentials, add a *New credential*. Click **view credentials**. Copy and replace **username** and **password** for **CONVERSATION_USERNAME** and **CONVERSATION_PASSWORD**, respectively, in the file **libraryui-deployment.yaml**.
 
 2. Create an instance of the *Watson Text-to-Speech* service by opening the catalog and selecting the service. Copy the credentials to the file **libraryui-deployment.yaml**; replace the values of **tts_username** and **tts_password** with the username and password in the credentials.
 
 3. Create an instance of the *App ID* Service on Bluemix by selecting it from the catalog. Copy the corresponding values of the credentials into the following values in the file **libraryui-deployment.yaml**: *CLIENT_ID, OAUTH_SERVER_URL, SECRET, TENANT_ID*.
 
-## 2. Connect to Bluemix on the command line <a name="part2"></a>
+## 2. Connect to IBM Cloud on the command line <a name="part2"></a>
 
 0. Open a terminal. Make sure you can run docker commands on this terminal.
 1. Login to Bluemix using the command line:
@@ -92,7 +94,7 @@ Before running the two containers on a Kubernetes cluster on Bluemix, you need t
     bx login -a https://api.eu-de.bluemix.net
     ```
     Depending on which region you want to use, you can change the API URL to https://api.eu-gb.bluemix.net for the United Kingdom or https://api.ng.bluemix.net.
-    Enter the Email and Password for your Bluemix account and select your Organization and Space.
+    Enter the Email and Password for your IBM Cloud account and select your Organization and Space.
 
 2. List all accessible clusters:
     ```
@@ -105,7 +107,7 @@ Before running the two containers on a Kubernetes cluster on Bluemix, you need t
     ```
     When the download of the configuration files is finished, a command is displayed that you can use to set the path to the local Kubernetes configuration file as an environment variable.
 
-4. Log in to the Bluemix Container Registry CLI. List the image repositories of the cluster.
+4. Log in to the IBM Cloud Container Registry CLI. List the image repositories of the cluster.
     ```
     bx cr login
     bx cr namespace-list
@@ -222,7 +224,7 @@ In this case, we will use the **ibmcom/cloudant-developer** image from Docker Hu
 
 ## 4. Add the Java and the Node.JS server to the cluster <a name="part4"></a>
 
-1. Build the docker images locally. Replace *<region>* with the Bluemix region you are using and *<namespace>* with the name of your namespace.
+1. Build the docker images locally. Replace **<region>** with the Bluemix region you are using and **<namespace>** with the name of your namespace.
     ```
     docker build -t registry.<region>.bluemix.net/<namespace>/library-server:v1 ./library-server-java
     docker build -t registry.<region>.bluemix.net/<namespace>/library-ui:v1 ./Libraryui
