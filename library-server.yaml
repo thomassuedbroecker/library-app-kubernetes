@@ -29,8 +29,8 @@ spec:
         run: library-server
     spec:
       containers:
-      - image: registry.eu-de.bluemix.net/feggers/library-server:v1
-        #image: library-server:v1
+      - #image: registry.eu-de.bluemix.net/feggers/library-server:v1
+        image: library-server:v1
         name: library-server
         env:
           - name: CLOUDANT_DEVELOPER

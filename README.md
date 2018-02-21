@@ -140,8 +140,19 @@ Before running the Library application with the two containers on a Kubernetes c
 For the library application, you need a Cloudant NoSQL Database.
 In this case, we will use the **ibmcom/cloudant-developer** image from **Docker Hub**.
 
-_Note:_ You could also use the Cloudant Service from the IBM Cloud catalog.
-(If so, copy the credentials into the file *library-server.yaml* and change the value of the environment variable **CLOUDANT_DEVELOPER** to anything other than 1).
+_Note:_ You could also use the **Cloudant Service** from the **IBM Cloud** catalog.
+  * copy the credentials into the file *library-server.yaml*
+  * change the value of the environment variable **CLOUDANT_DEVELOPER** to anything other than 1.
+
+  ```
+  env:
+    - name: CLOUDANT_DEVELOPER
+      value: "1"
+    - name: password
+      value: xxx
+    - name: username
+      value: xxx
+  ```
 
 1. Navigate to the folder **/library-app-kubernetes**. Create a deployment and a service inside kubernets for the databases:
     ```
