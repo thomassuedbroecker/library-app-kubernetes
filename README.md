@@ -272,7 +272,7 @@ Remember your registry namespace with **bx cr namespace-list**.
     docker push registry.<region>.bluemix.net/<namespace>/library-ui:v1
     ```
 
-### 5.2 Deploy the images of the registry to Kubernetes
+### 5.2 Deploy the Docker images of the registry to Kubernetes 
 
 1. In the file **library-server.yaml**, change the name of the image in line 32 to **registry._region_.bluemix.net/_namespace_/library-server:v1**.
 
