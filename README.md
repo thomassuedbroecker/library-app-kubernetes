@@ -12,9 +12,10 @@
 
 ## Overview <a name="part0-0"></a>
 
-This is a sample application running on kubernetes, and using IBM Cloud Services (Watson Conversation Service, TextToSpeech Service and App ID Service)
+This is a sample application running on kubernetes, and using IBM Cloud Services (**Watson Conversation Service**, **TextToSpeech Service** and **App ID Service**), a NoSQL Database (**Cloudant**) and runtimes inside the containers (Node.JS and Java Liberty).
 
-_Note:_ A sample to run the application using Cloud Foundry as runtime is also available here on github. Link to the GitHub Project [https://github.com/cloud-dach/cf-hands-on-library](https://github.com/cloud-dach/cf-hands-on-library)
+_Note:_ There is also a sample to run this application using Cloud Foundry runtime in IBM Cloud.
+The sample also available on github. Here is the link to the GitHub Project: [https://github.com/cloud-dach/cf-hands-on-library](https://github.com/cloud-dach/cf-hands-on-library)
 
 Once fully deployed, the web UI looks this:
 ![Web_UI](./images/WebInterface.png)
@@ -54,7 +55,7 @@ git clone https://github.com/florae123/library-app-kubernetes
 
 ## 1. Create the IBM Cloud Services <a name="part1"></a>
 
-Before running the two containers on a Kubernetes cluster on IBM Cloud, you need to create an instance of a Conversation Service, a TextToSpeech Service and an App ID service on Bluemix.
+Before running the Library application with the two containers on a Kubernetes cluster on IBM Cloud, you need to create an instance of a Conversation Service, a TextToSpeech Service and an App ID service on IBM Cloud. This services are used inside the Node.JS frontend container.
 
 1. First, create a *Watson Conversation* service and copy the credentials to the Kubernetes Service configuration file.
 
@@ -121,7 +122,7 @@ Before running the two containers on a Kubernetes cluster on IBM Cloud, you need
 
 For the library application, you need a Cloudant NoSQL Database.
 
-You could also use the Cloudant Service from the Bluemix catalog. (If so, copy the credentials into the file *library-server.yaml* and change the value of the environment variable **CLOUDANT_DEVELOPER** to anything other than 1).
+You could also use the Cloudant Service from the IBM Cloud catalog. (If so, copy the credentials into the file *library-server.yaml* and change the value of the environment variable **CLOUDANT_DEVELOPER** to anything other than 1).
 
 In this case, we will use the **ibmcom/cloudant-developer** image from Docker Hub.
 
