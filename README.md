@@ -118,6 +118,11 @@ Before running the Library application with the two containers on a Kubernetes c
     Execute the **export** command, which will be shown after your command.
     Then the **export KUBECONFIG=** knows the remote kubernets Cluster and you can use _normal_ kubernets commandline on your local machine.
 
+3. Verify the access to the Kubernetes local PC and open the Kubernetes dashboard: http://localhost:8001/ui
+    ```
+    kubectl proxy
+    Starting to serve on 127.0.0.1:8001
+    ```
 
 4. Log in to the IBM Cloud Container Registry CLI. List the image repositories of the cluster.
     ```
@@ -146,9 +151,9 @@ _Note:_ You could also use the Cloudant Service from the IBM Cloud catalog.
     ```
     kubectl get services
     ```
-    There should be a service named *cloudant-developer* in the list.
+    There should be a service named **cloudant-developer** in the list.
 
-2. Configure the databases:
+2. Configure the databases inside the **cloudant-developer** service:
 
     1. Copy the name of the pod starting with **cloudant-developer**.
         ```
