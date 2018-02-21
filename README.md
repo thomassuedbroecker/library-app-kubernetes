@@ -14,7 +14,7 @@
 
 This is a sample application running on kubernetes, and using IBM Cloud Services (Watson Conversation Service, TextToSpeech Service and App ID Service)
 
-_Note:_ A sample to run the application using Cloud Foundry as runtime is also available here on github. Link to the GitHub Project [Web_UI](https://github.com/cloud-dach/cf-hands-on-library)
+_Note:_ A sample to run the application using Cloud Foundry as runtime is also available here on github. Link to the GitHub Project [https://github.com/cloud-dach/cf-hands-on-library](https://github.com/cloud-dach/cf-hands-on-library)
 
 Once fully deployed, the web UI looks this:
 ![Web_UI](./images/WebInterface.png)
