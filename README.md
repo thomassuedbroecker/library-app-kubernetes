@@ -257,14 +257,14 @@ In this case, we will use the **ibmcom/cloudant-developer** image from **Docker 
 
 Remember your registry namespace with **bx cr namespace-list**.
 
-1. Build the docker images locally. Replace **<region>** with the IBM Cloud region you are using and **<namespace>** with the name of your namespace.
+1. **Build the docker images locally.** Replace **<region>** with the IBM Cloud region you are using and **<namespace>** with the name of your namespace.
     ```
     docker build -t registry.<region>.bluemix.net/<namespace>/library-server:v1 ./library-server-java
     docker build -t registry.<region>.bluemix.net/<namespace>/library-ui:v1 ./Libraryui
     ```
     Wait until the builds are complete.
 
-2. Push the images to your registry namespace and wait for them to finish.
+2. **Push the images to your registry namespace** and wait for them to finish.
     ```
     docker push registry.<region>.bluemix.net/<namespace>/library-server:v1
     docker push registry.<region>.bluemix.net/<namespace>/library-ui:v1
@@ -274,7 +274,7 @@ Remember your registry namespace with **bx cr namespace-list**.
 
     In the file **library-ui-deployment.yaml**, change the name of the image to **registry._region_.bluemix.net/_namespace_/library-ui:v1** in line 15.
 
-4. Create a deployment and a service for the java backend in your cluster.
+4. Create a **deployment and a service** for the java backend in your kubernets cluster.
     ```
     kubectl create -f library-server.yaml
     ```
