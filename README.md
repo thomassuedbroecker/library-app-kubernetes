@@ -108,18 +108,27 @@ Before running the Library application with the two containers on a Kubernetes c
 3. Set the kubernetes configuration context with the **KUBECONFIG** env variable. Replace *<cluster_name>* with the name of the accessible cluster you want to use.
     ```
     bx cs cluster-config <cluster_name>
+    export KUBECONFIG=/Users/[YOUR_USER]/.bluemix/plugins/container-service/clusters/[YOUR_USER_CLUSTER_NAME]/kube-config-mel01-[YOUR_USER_CLUSTER_NAME].yml
+
     ```
-    When the download of the configuration files is finished, a command is displayed that you can use to set the path to the local Kubernetes configuration file as an environment variable.
+    Get the cluster configuration to connect to your kubernets Cluster on IBM Cloud.
+
+    When the download of the configuration files is finished, a command is displayed that you can use to set the path **KUBECONFIG** to the local kubernetes configuration file as an environment variable.
+
+    Execute the **export** command, which will be shown after your command.
+    Then the **export KUBECONFIG=** knows the remote kubernets Cluster and you can use _normal_ kubernets commandline on your local machine.
+
 
 4. Log in to the IBM Cloud Container Registry CLI. List the image repositories of the cluster.
     ```
     bx cr login
     bx cr namespace-list
     ```
-    Create an image repository in the Bluemix Container Registry if you don't already have one. Choose a name to identify it.
+    Create an image repository in the IBM Cloud Container Registry if you don't already have one. Choose a name to identify it.
     ```
     bx cr namespace-add <your_namespace>
     ```
+
 
 ## 3. Setup the Cloudant Developer Edition Container <a name="part3"></a>
 
@@ -129,7 +138,7 @@ In this case, we will use the **ibmcom/cloudant-developer** image from **Docker 
 _Note:_ You could also use the Cloudant Service from the IBM Cloud catalog.
 (If so, copy the credentials into the file *library-server.yaml* and change the value of the environment variable **CLOUDANT_DEVELOPER** to anything other than 1).
 
-1. Navigate to the folger **/library-app-kubernetes**. Create a deployment and a service for the databases:
+1. Navigate to the folder **/library-app-kubernetes**. Create a deployment and a service inside kubernets for the databases:
     ```
     kubectl create -f cloudant-developer.yaml
     ```
