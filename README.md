@@ -12,7 +12,7 @@
 
 ## Overview <a name="part0-0"></a>
 
-This is a sample application running on kubernetes, and using IBM Cloud Services (**Watson Conversation Service**, **TextToSpeech Service** and **App ID Service**), a NoSQL Database (**Cloudant**) and runtimes inside the containers (Node.JS and Java Liberty).
+This is a sample application running on kubernetes, and using IBM Cloud Services (**Watson Conversation Service**, **TextToSpeech Service** and **App ID Service**). The NoSQL Database (**Cloudant**) and runtimes (Node.JS and Java Liberty) running inside the containers.
 
 _Note:_ There is also a sample to run this application using Cloud Foundry runtime in IBM Cloud.
 The sample also available on github. Here is the link to the GitHub Project: [https://github.com/cloud-dach/cf-hands-on-library](https://github.com/cloud-dach/cf-hands-on-library)
@@ -124,10 +124,10 @@ Before running the Library application with the two containers on a Kubernetes c
 ## 3. Setup the Cloudant Developer Edition Container <a name="part3"></a>
 
 For the library application, you need a Cloudant NoSQL Database.
+In this case, we will use the **ibmcom/cloudant-developer** image from **Docker Hub**.
 
-You could also use the Cloudant Service from the IBM Cloud catalog. (If so, copy the credentials into the file *library-server.yaml* and change the value of the environment variable **CLOUDANT_DEVELOPER** to anything other than 1).
-
-In this case, we will use the **ibmcom/cloudant-developer** image from Docker Hub.
+_Note:_ You could also use the Cloudant Service from the IBM Cloud catalog.
+(If so, copy the credentials into the file *library-server.yaml* and change the value of the environment variable **CLOUDANT_DEVELOPER** to anything other than 1).
 
 1. Navigate to the folger **/library-app-kubernetes**. Create a deployment and a service for the databases:
     ```
