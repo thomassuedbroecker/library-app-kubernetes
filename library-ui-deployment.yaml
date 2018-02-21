@@ -12,8 +12,8 @@ spec:
         run: library-ui
     spec:
       containers:
-      - #image: registry.eu-de.bluemix.net/feggers/library-ui:v1
-        image: library-ui:v1
+      - image: registry.[REGION].bluemix.net/[NAMESPACE]/library-ui:v1
+        #image: library-ui:v1
         name: library-ui
         ports:
         - containerPort: 8080

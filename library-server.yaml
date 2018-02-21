@@ -29,12 +29,12 @@ spec:
         run: library-server
     spec:
       containers:
-      - #image: registry.eu-de.bluemix.net/feggers/library-server:v1
-        image: library-server:v1
+      - image: registry.[REGION].bluemix.net/[NAMESPACE]/library-server:v1
+        #image: library-server:v1
         name: library-server
         env:
           - name: CLOUDANT_DEVELOPER
-            value: "1"
+            value: "2" #set to 2 for usage of Cloudant in IBM Cloud and 1 for using the container.
           - name: password
             value: xxx
           - name: username
