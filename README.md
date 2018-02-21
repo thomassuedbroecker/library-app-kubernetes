@@ -18,7 +18,10 @@ _Note:_ There is also a sample to run this application using Cloud Foundry runti
 The sample also available on github. Here is the link to the GitHub Project: [https://github.com/cloud-dach/cf-hands-on-library](https://github.com/cloud-dach/cf-hands-on-library)
 
 Once fully deployed, the web UI looks this:
+
 ![Web_UI](./images/WebInterface.png)
+
+_Note:_ That the video refers to an older version of the demo app https://www.youtube.com/watch?v=NqF2wIMBqBw.
 
 The basic architecture of the application running on a Kubernetes cluster:
 
