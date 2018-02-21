@@ -7,8 +7,9 @@
 * The deployment steps
     1. [Create the IBM Cloud Services](#part1)
     2. [Connect to IBM Cloud on the command line](#part2)
-    3. [Set up the Cloudant Developer Edition Container](#part3)
-    4. [Add the Java and the Node.JS server to the cluster](#part4)
+    3. [Setup the Cloudant in IBM Cloud](#part31)
+    4. [Setup the Cloudant Developer Edition as Container](#part32)
+    5. [Add the Java and the Node.JS server to the cluster](#part4)
 
 ## Overview <a name="part0-0"></a>
 
@@ -134,25 +135,26 @@ Before running the Library application with the two containers on a Kubernetes c
     bx cr namespace-add <your_namespace>
     ```
 
+## 3. Setup the Cloudant in IBM Cloud <a name="part31"></a>
 
-## 3. Setup the Cloudant Developer Edition Container <a name="part3"></a>
-
-For the library application, you need a Cloudant NoSQL Database.
-In this case, we will use the **ibmcom/cloudant-developer** image from **Docker Hub**.
-
-_Note:_ You could also use the **Cloudant Service** from the **IBM Cloud** catalog.
+You could also use the **Cloudant Service** from the **IBM Cloud** catalog.
   * copy the credentials into the file *library-server.yaml*
   * change the value of the environment variable **CLOUDANT_DEVELOPER** to anything other than 1.
 
   ```
   env:
     - name: CLOUDANT_DEVELOPER
-      value: "1"
+      value: "1" #set to
     - name: password
       value: xxx
     - name: username
       value: xxx
   ```
+
+## 4. Setup the Cloudant Developer Edition as Container <a name="part3"></a>
+
+For the library application, you need a Cloudant NoSQL Database.
+In this case, we will use the **ibmcom/cloudant-developer** image from **Docker Hub**.
 
 1. Navigate to the folder **/library-app-kubernetes**. Create a deployment and a service inside kubernets for the databases:
     ```
@@ -251,7 +253,7 @@ _Note:_ You could also use the **Cloudant Service** from the **IBM Cloud** catal
 
     7. To return to the normal command line, press **Ctrl+C** in the terminal.
 
-## 4. Add the Java and the Node.JS server to the cluster <a name="part4"></a>
+## 5. Add the Java and the Node.JS server to the cluster <a name="part4"></a>
 
 1. Build the docker images locally. Replace **<region>** with the Bluemix region you are using and **<namespace>** with the name of your namespace.
     ```
