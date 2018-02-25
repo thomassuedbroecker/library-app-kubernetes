@@ -289,7 +289,7 @@ Remember your registry namespace with **bx cr namespace-list**.
    ```
     spec:
       containers:
-      - image: registry.[REGION].bluemix.net/[NAMESPACE]/library-server:v1
+      - image: registry.[REGION].bluemix.net/[DOCKER_REGISTRY_NAMESPACE]/library-server:v1
         #image: library-server:v1
         name: library-server
         env:
@@ -306,7 +306,7 @@ Remember your registry namespace with **bx cr namespace-list**.
     ```
         spec:
           containers:
-          - image: registry.[REGION].bluemix.net/[NAMESPACE]/library-ui:v1
+          - image: registry.[REGION].bluemix.net/[DOCKER_REGISTRY_NAMESPACE]/library-ui:v1
             #image: library-ui:v1
             name: library-ui
             ports:
