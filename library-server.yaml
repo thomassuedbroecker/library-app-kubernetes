@@ -28,17 +28,19 @@ spec:
       labels:
         run: library-server
     spec:
+      imagePullSecrets: #insert this from https://github.com/lionelmace/bluemix-labs/tree/master/labs/Lab%20Kubernetes%20-%20Orchestrate%20your%20docker%20containers#appendix---using-kubernetes-namespaces
+      - name: private-registry-secret
       containers:
-      - image: registry.[REGION].bluemix.net/[NAMESPACE]/library-server:v1
+      - image: registry.[REGION].bluemix.net/[DOCKER_REGISTRY_NAMESPACE]/library-server:v1
         #image: library-server:v1
         name: library-server
         env:
           - name: CLOUDANT_DEVELOPER
             value: "2" #set to 2 for usage of Cloudant in IBM Cloud and 1 for using the container.
           - name: password
-            value: xxx
+            value: 084f49302d474eb0b8225810df805e203f9de1dbb24a696013cee2cb83073fed
           - name: username
-            value: xxx
+            value: 178e71a1-e01e-40a9-bd0a-4d993284b199-bluemix
         ports:
         - containerPort: 9080
           protocol: TCP

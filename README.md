@@ -87,9 +87,9 @@ Before running the Library application with the two containers on a Kubernetes c
 
   * Go back to IBM Cloud in your browser. Open the **Service credentials** tab. If there are no credentials, add a *New credential*. Click **view credentials**. Copy and replace **username** and **password** for **CONVERSATION_USERNAME** and **CONVERSATION_PASSWORD**, respectively, in the file **libraryui-deployment.yaml**.
 
-2. Create an instance of the *Watson Text-to-Speech* service by opening the catalog and selecting the service. Copy the credentials to the file **libraryui-deployment.yaml**; replace the values of **tts_username** and **tts_password** with the username and password in the credentials.
+2. Create an instance of the **Watson Text-to-Speech** service by opening the catalog and selecting the service. Copy the credentials to the file **libraryui-deployment.yaml**; replace the values of **tts_username** and **tts_password** with the username and password in the credentials.
 
-3. Create an instance of the *App ID* Service on Bluemix by selecting it from the catalog. Copy the corresponding values of the credentials into the following values in the file **libraryui-deployment.yaml**: *CLIENT_ID, OAUTH_SERVER_URL, SECRET, TENANT_ID*.
+3. Create an instance of the **App ID** Service on Bluemix by selecting it from the catalog. Copy the corresponding values of the credentials into the following values in the file **libraryui-deployment.yaml**: *CLIENT_ID, OAUTH_SERVER_URL, SECRET, TENANT_ID*.
 
 ## 2. Connect to IBM Cloud on the command line <a name="part2"></a>
 
@@ -119,7 +119,17 @@ Before running the Library application with the two containers on a Kubernetes c
     Execute the **export** command, which will be shown after your command.
     Then the **export KUBECONFIG=** knows the remote kubernets Cluster and you can use _normal_ kubernets commandline on your local machine.
 
-3. Verify the access to the Kubernetes local PC and open the Kubernetes dashboard: http://localhost:8001/ui
+3. Verify the access to the kubernetes local PC and open the Kubernetes dashboard: http://localhost:8001/ui and logon with the token.
+
+    To logon on kubernets dashboard you need a secret token.
+    ```
+    kubectl -n kube-system get secret
+    kubectl -n kube-system describe secret kubernetes-dashboard-token-k9csz
+    ```
+    Use the token to logon to the Kubernetes dashboard.
+
+    ![import](./images/kubernets-secret.png)
+
     ```
     kubectl proxy
     Starting to serve on 127.0.0.1:8001
@@ -312,6 +322,27 @@ Remember your registry namespace with **bx cr namespace-list**.
             - name: CONVERSATION_USERNAME
               value: xxx
     ```
+
+2.  Bind the IBM Docker Registry to the Kuberentes namespace
+_Note:_ ![Take a look in the sample of Lionel Mace](https://github.com/lionelmace/bluemix-labs/tree/master/labs/Lab%20Kubernetes%20-%20Orchestrate%20your%20docker%20containers#appendix---using-kubernetes-namespaces)
+
+The namespace does not contain the secret to access the private container registry. The default namespace has by default this secret to access the registry. If you try to deploy without this step, you will get this **error**:
+
+**Failed to pull image "registry.[REGION].bluemix.net/[NAMESPACE]/library-ui:v1": rpc error: code = Unknown desc = Error response from daemon: Get https://registry.[REGION].bluemix.net/[NAMESPACE]/library-ui unauthorized: authentication required**
+
+    In order to add this registry secret, run the following command:
+    ```
+    kubectl --namespace <CLUSTER_NAMESPACE> create secret docker-registry <IMAGE_REGISTRY_SECRET_NAME> --docker-server=<REGISTRY_URL> --docker-password=<IBMCLOUD_API_KEY> --docker-username=iamapikey --docker-email=a@b.com
+    ```
+
+    For example:
+    ```
+    bx iam api-key-create IBMCLOUD_API_KEY
+
+    kubectl --namespace [NAMESPACE] create secret docker-registry private-registry-secret --docker-server=registry.eu-de.bluemix.net --docker-password=<IBMCLOUD_API_KEY> --docker-username=iamapikey --docker-email=a@b.com
+    ```
+
+    _Note:_ You can generate the api key using the following command: bx iam api-key-create IBMCLOUD_API_KEY
 
 3. Create a **deployment and a service** for the java backend in your kubernets cluster.
     ```

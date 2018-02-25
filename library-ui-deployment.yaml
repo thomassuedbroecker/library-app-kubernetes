@@ -11,8 +11,10 @@ spec:
       labels:
         run: library-ui
     spec:
+      imagePullSecrets: #insert this from https://github.com/lionelmace/bluemix-labs/tree/master/labs/Lab%20Kubernetes%20-%20Orchestrate%20your%20docker%20containers#appendix---using-kubernetes-namespaces
+      - name: private-registry-secret
       containers:
-      - image: registry.[REGION].bluemix.net/[NAMESPACE]/library-ui:v1
+      - image: registry.[REGION].bluemix.net/[DOCKER_REGISTRY_NAMESPACE]/library-ui:v1
         #image: library-ui:v1
         name: library-ui
         ports:
