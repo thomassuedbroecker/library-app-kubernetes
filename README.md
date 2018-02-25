@@ -124,11 +124,11 @@ Before running the Library application with the two containers on a Kubernetes c
     To logon on kubernets dashboard you need a secret token.
     ```
     kubectl -n kube-system get secret
-    kubectl -n kube-system describe secret kubernetes-dashboard-token-k9csz
+    kubectl -n kube-system describe secret kubernetes-dashboard-token-[YOUR_ID_YOU_FIND_IN_THE_LIST]
     ```
     Use the token to logon to the Kubernetes dashboard.
 
-    ![import](./images/kubernets-secret.png)
+    ![import](./images/kubernetes-secret.png)
 
     ```
     kubectl proxy
