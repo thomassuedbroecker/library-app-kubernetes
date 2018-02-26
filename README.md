@@ -382,18 +382,22 @@ The namespace does not contain the secret to access the private container regist
 ### How to handle Docker images
 
 List Docker images:
+
     ```
     docker images -a |  grep "registry"
     ```
 Delete Docker images:
+
     ```
     docker images -a | grep "registry.ng" | awk '{print $3}' | xargs docker rmi -f
     ```
 
 ### Sample usage of the Bluemix commandline
 
+Just a sample how to access a application in Kubernetes on cloud.
+
   ```
-MacBook-Pro:library-app-kubernetes tsuedbroecker$ bx target -o thomas.suedbroecker@xx.de -s 99_kubernetes
+  MacBook-Pro:library-app-kubernetes tsuedbroecker$ bx target -o thomas.suedbroecker@xx.de -s 99_kubernetes
   Adressierte Organisation thomas.suedbroecker@xx.de
 
   Adressierter Bereich 99_Kubernetes
