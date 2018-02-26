@@ -376,3 +376,97 @@ The namespace does not contain the secret to access the private container regist
     ```
 
 7. Open **http://<EXTERNAL-IP_library-ui>:30832** in a browser and log in using a facebook or google account.
+
+## Additional Information
+
+### How to handle Docker images
+
+List Docker images:
+    ```
+    docker images -a |  grep "registry"
+    ```
+Delete Docker images:
+    ```
+    docker images -a | grep "registry.ng" | awk '{print $3}' | xargs docker rmi -f
+    ```
+
+### Sample usage of the Bluemix commandline
+
+  ```
+MacBook-Pro:library-app-kubernetes tsuedbroecker$ bx target -o thomas.suedbroecker@xx.de -s 99_kubernetes
+  Adressierte Organisation thomas.suedbroecker@xx.de
+
+  Adressierter Bereich 99_Kubernetes
+
+
+
+  API-Endpunkt:       https://api.eu-gb.bluemix.net (API-Version: 2.92.0)   
+  Region:             eu-gb   
+  Benutzer:           thomas.suedbroecker@xx.de   
+  Konto:              Thomas Südbröcker's Account (641ebfffbac35c8385ee21d79b45279e)   
+  Ressourcengruppe:   default   
+  Organisation:       thomas.suedbroecker@xx.de   
+  Bereich:            99_Kubernetes   
+  MacBook-Pro:library-app-kubernetes tsuedbroecker$ bx cr login
+  Anmeldung bei 'registry.eu-gb.bluemix.net' wird ausgeführt...
+  Bei 'registry.eu-gb.bluemix.net' angemeldet.
+
+  OK
+  MacBook-Pro:library-app-kubernetes tsuedbroecker$ bx cs clusters
+  OK
+  Name              ID                                 State    Created        Workers   Location   Version   
+  uk_cluster_name   726601d3e7c2453ba95958ceb4b4537b   normal   19 hours ago   1         mil01      1.8.6_1505   
+  MacBook-Pro:library-app-kubernetes tsuedbroecker$ bx cs cluster-config uk_cluster_name
+  OK
+  Die Konfiguration für uk_cluster_name wurde erfolgreich heruntergeladen. Exportieren Sie die Umgebungsvariablen, um mit der Verwendung von Kubernetes zu beginnen.
+
+  export KUBECONFIG=/Users/tsuedbroecker/.bluemix/plugins/container-service/clusters/uk_cluster_name/kube-config-mil01-uk_cluster_name.yml
+  MacBook-Pro:library-app-kubernetes tsuedbroecker$ export KUBECONFIG=/Users/tsuedbroecker/.bluemix/plugins/container-service/clusters/uk_cluster_name/kube-config-mil01-uk_cluster_name.yml
+  MacBook-Pro:library-app-kubernetes tsuedbroecker$ kubectl -n kube-system get secret
+  NAME                                   TYPE                                  DATA      AGE
+  bluemix-default-secret                 kubernetes.io/dockercfg               1         19h
+  bluemix-default-secret-international   kubernetes.io/dockercfg               1         19h
+  bluemix-default-secret-regional        kubernetes.io/dockercfg               1         19h
+  calico-etcd-secrets                    Opaque                                3         19h
+  calico-kube-controllers-token-5p9js    kubernetes.io/service-account-token   3         19h
+  calico-node-token-tszg6                kubernetes.io/service-account-token   3         19h
+  default-token-qwhvv                    kubernetes.io/service-account-token   3         19h
+  heapster-token-6p59v                   kubernetes.io/service-account-token   3         18h
+  kube-dns-token-6mxz8                   kubernetes.io/service-account-token   3         18h
+  kubernetes-dashboard-certs             Opaque                                2         18h
+  kubernetes-dashboard-key-holder        Opaque                                2         18h
+  kubernetes-dashboard-token-46dbd       kubernetes.io/service-account-token   3         18h
+  MacBook-Pro:library-app-kubernetes tsuedbroecker$ kubectl -n kube-system describe secret default-token-qwhvv
+  Name:		default-token-qwhvv
+  Namespace:	kube-system
+  Labels:		<none>
+  Annotations:	kubernetes.io/service-account.name=default
+  		kubernetes.io/service-account.uid=ad3ec88f-1a1b-11e8-85e1-82a4ba6db651
+
+  Type:	kubernetes.io/service-account-token
+
+  Data
+  ====
+  ca.crt:		1887 bytes
+  namespace:	11 bytes
+  token:		eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkZWZhdWx0LXRva2VuLXF3aHZ2Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImRlZmF1bHQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJhZDNlYzg4Zi0xYTFiLTExZTgtODVlMS04MmE0YmE2ZGI2NTEiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06ZGVmYXVsdCJ9.RDWWvi41EKsYF6sy_z7peI1NM4n1IV7kfIi0bwPI34VUNw4l8cusYOvLL7_dQ3D_jem7oJh7m_8ntB4BnNUXTFpLApTzNrDz4dk6PIv_KTo1ZTDEW4vueM5DGkNuwtSEipXc8Umy0TbvMq0fooTU1JfT6QuNxYGpiUO0UDdYKTwDUIFQDMLk6W5QeCVJFSDl11IkVWAEiQk8q3hzKN8sQQ6YaLNtaIbkrbgFRAHSSdr3mCr6OscsaUXBfe62r3yXPGZh0ynNFXsZC2yqGK2KW74ucukJGzv908Ylr6ic8TjxBcc7zrA8lJoL3b-7Clb5QET7mWFUQ8e1t3NTCxZBser9TLawMxTu5Ka5caDK4zY9eI0CoVHq8vGiDIw1OzJNfbdV6E4AXfdNOmUnyexMGZkbZ3JWUDHwncTB9B5Q25ZnP_bFwJ6QGmM-EfXOzVCX4T8neWwibMHtc0D626khkrkbAppx7KPGs4JpTwCtFM9vZePIgik_BIqEikIpaKRyAHy_rOKQwgFZ-ckYaR0OiK_mTdfbeYgUPHlOClnqrJqTQHvigE0RLsFs7JqZriZXHip9gkEhHXqWYG4tsB_geNPBSkp70E_N_rKtIpzBufF-B5iGyQSotqsKZRf0ZYLeIygNHoeS1H6qxS68YG1Zu2SkSUrUFNv2e2cVcpJWju0
+  MacBook-Pro:library-app-kubernetes tsuedbroecker$ kubectl proxy
+  Starting to serve on 127.0.0.1:8001^C
+  MacBook-Pro:library-app-kubernetes tsuedbroecker$ kubectl describe service mytodos
+  Name:			mytodos
+  Namespace:		default
+  Labels:			app=mytodos
+  			tier=frontend
+  Selector:		app=mytodos,tier=frontend
+  Type:			NodePort
+  IP:			172.21.6.156
+  Port:			<unset>	8080/TCP
+  NodePort:		<unset>	31513/TCP
+  Endpoints:		172.30.156.218:8080,172.30.156.219:8080
+  Session Affinity:	None
+  No events.
+  MacBook-Pro:library-app-kubernetes tsuedbroecker$ bx cs workers uk_cluster_name
+  OK
+  ID                                                 Public IP        Private IP       Machine Type   State    Status   Zone    Version   
+  kube-mil01-pa726601d3e7c2453ba95958ceb4b4537b-w1   159.122.174.77   10.144.183.214   free           normal   Ready    mil01   1.8.6_1506
+  ```
