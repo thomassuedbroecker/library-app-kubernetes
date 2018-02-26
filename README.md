@@ -396,6 +396,8 @@ Delete Docker images:
 
 Just a sample how to access a application in Kubernetes on cloud.
 
+### Login to IBM Cloud
+
   ```
   MacBook-Pro:library-app-kubernetes tsuedbroecker$ bx target -o thomas.suedbroecker@xx.de -s 99_kubernetes
   Adressierte Organisation thomas.suedbroecker@xx.de
@@ -416,16 +418,31 @@ Just a sample how to access a application in Kubernetes on cloud.
   Bei 'registry.eu-gb.bluemix.net' angemeldet.
 
   OK
+  ```
+
+### Get the cluster information
+
+  ```
   MacBook-Pro:library-app-kubernetes tsuedbroecker$ bx cs clusters
   OK
   Name              ID                                 State    Created        Workers   Location   Version   
-  uk_cluster_name   726601d3e7c2453ba95958ceb4b4537b   normal   19 hours ago   1         mil01      1.8.6_1505   
+  uk_cluster_name   726601d3e7c2453ba95958ceb4b4537b   normal   19 hours ago   1         mil01      1.8.6_1505
+  ```
+
+### Configure the local access to Kubernetes
+
+  ```
   MacBook-Pro:library-app-kubernetes tsuedbroecker$ bx cs cluster-config uk_cluster_name
   OK
   Die Konfiguration für uk_cluster_name wurde erfolgreich heruntergeladen. Exportieren Sie die Umgebungsvariablen, um mit der Verwendung von Kubernetes zu beginnen.
 
   export KUBECONFIG=/Users/tsuedbroecker/.bluemix/plugins/container-service/clusters/uk_cluster_name/kube-config-mil01-uk_cluster_name.yml
   MacBook-Pro:library-app-kubernetes tsuedbroecker$ export KUBECONFIG=/Users/tsuedbroecker/.bluemix/plugins/container-service/clusters/uk_cluster_name/kube-config-mil01-uk_cluster_name.yml
+  ```
+
+### Get the secret for the dashboard
+
+  ```
   MacBook-Pro:library-app-kubernetes tsuedbroecker$ kubectl -n kube-system get secret
   NAME                                   TYPE                                  DATA      AGE
   bluemix-default-secret                 kubernetes.io/dockercfg               1         19h
@@ -456,6 +473,11 @@ Just a sample how to access a application in Kubernetes on cloud.
   token:		eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkZWZhdWx0LXRva2VuLXF3aHZ2Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImRlZmF1bHQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJhZDNlYzg4Zi0xYTFiLTExZTgtODVlMS04MmE0YmE2ZGI2NTEiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06ZGVmYXVsdCJ9.RDWWvi41EKsYF6sy_z7peI1NM4n1IV7kfIi0bwPI34VUNw4l8cusYOvLL7_dQ3D_jem7oJh7m_8ntB4BnNUXTFpLApTzNrDz4dk6PIv_KTo1ZTDEW4vueM5DGkNuwtSEipXc8Umy0TbvMq0fooTU1JfT6QuNxYGpiUO0UDdYKTwDUIFQDMLk6W5QeCVJFSDl11IkVWAEiQk8q3hzKN8sQQ6YaLNtaIbkrbgFRAHSSdr3mCr6OscsaUXBfe62r3yXPGZh0ynNFXsZC2yqGK2KW74ucukJGzv908Ylr6ic8TjxBcc7zrA8lJoL3b-7Clb5QET7mWFUQ8e1t3NTCxZBser9TLawMxTu5Ka5caDK4zY9eI0CoVHq8vGiDIw1OzJNfbdV6E4AXfdNOmUnyexMGZkbZ3JWUDHwncTB9B5Q25ZnP_bFwJ6QGmM-EfXOzVCX4T8neWwibMHtc0D626khkrkbAppx7KPGs4JpTwCtFM9vZePIgik_BIqEikIpaKRyAHy_rOKQwgFZ-ckYaR0OiK_mTdfbeYgUPHlOClnqrJqTQHvigE0RLsFs7JqZriZXHip9gkEhHXqWYG4tsB_geNPBSkp70E_N_rKtIpzBufF-B5iGyQSotqsKZRf0ZYLeIygNHoeS1H6qxS68YG1Zu2SkSUrUFNv2e2cVcpJWju0
   MacBook-Pro:library-app-kubernetes tsuedbroecker$ kubectl proxy
   Starting to serve on 127.0.0.1:8001^C
+  ```
+
+### Get the port and ip, where the application runs
+
+  ```
   MacBook-Pro:library-app-kubernetes tsuedbroecker$ kubectl describe service mytodos
   Name:			mytodos
   Namespace:		default
